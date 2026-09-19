@@ -1,6 +1,6 @@
 {
   "name": "@apiverve/action-devops-utilities",
-  "version": "0.1.0-beta",
+  "version": "1.0.0",
   "description": "Validate JSON schemas, test regex patterns, and decode JWTs",
   "main": "dist/index.js",
   "scripts": {

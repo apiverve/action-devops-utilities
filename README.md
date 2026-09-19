@@ -2,9 +2,7 @@
 
 > Validate JSON schemas, test regex patterns, and decode JWTs
 
-> **Beta Release** - This action is in beta. We'd love your feedback! [Open an issue](https://github.com/apiverve/action-devops-utilities/issues) if you encounter any problems.
-
-[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-DevOps Utilities-blue?logo=github)](https://github.com/marketplace/actions/apiverve-devops-utilities)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-DevOps_Utilities-blue?logo=github)](https://github.com/apiverve/action-devops-utilities)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **[Browse All APIs](https://apiverve.com/marketplace?utm_source=github&utm_medium=action&utm_campaign=devops-utilities)** | **[Get Free API Key](https://dashboard.apiverve.com/signup?utm_source=github&utm_medium=action&utm_campaign=devops-utilities)** | **[Documentation](https://docs.apiverve.com?utm_source=github&utm_medium=action&utm_campaign=devops-utilities)**
@@ -24,11 +22,11 @@ This action provides access to APIVerve's DevOps Utilities APIs directly in your
 
 | API | Description |
 |-----|-------------|
-| `jsonschemavalidator` | JSON Schema Validator is a comprehensive tool for validating JSON data against JSON Schema definitions. It provides detailed error reporting with field-level validation results. |
-| `jsonschemagenerator` | JSON Schema Generator is a tool for automatically generating JSON schemas from sample JSON data. It creates Draft-07 compatible schemas with type inference and format detection. |
-| `regextester` | Regex Tester is a comprehensive tool for testing and validating regular expressions. It supports multiple operations (test, match, search, replace, split) with detailed performance analysis and pattern suggestions. |
+| `jsonschemavalidator` | JSON Schema Validator tests any JSON object against a provided JSON Schema definition to verify data structures and types. It reports pass-fail status and total error count, while paid plans add specific error messages. |
+| `jsonschemagenerator` | JSON Schema Generator inspects sample JSON payloads and generates Draft-07 JSON Schema definitions with inferred types and property formats. It identifies formats like emails and dates, applies custom titles, and lists all properties as required. |
+| `regextester` | Regex Tester tests regular expressions against input strings across operations like match, search, replace, and split. It reports compilation validity, syntax error details, execution timing, and structural pattern analysis. |
 | `jwtdecoder` | JWT Decoder decodes JWT tokens to reveal header and payload information without performing signature verification. |
-| `cronparser` | Cron Expression Parser is a comprehensive tool for parsing and validating cron expressions. It supports both 5-field and 6-field formats and returns detailed information about each field. |
+| `cronparser` | Cron Expression Parser decodes 5-field and 6-field cron expressions into human-readable schedules. Pass any cron string to verify syntax, read plain-language timing explanations, and get the next five execution timestamps. |
 
 ---
 
@@ -40,7 +38,7 @@ This action provides access to APIVerve's DevOps Utilities APIs directly in your
   with:
     api_key: ${{ secrets.APIVERVE_KEY }}
     api: jsonschemavalidator
-    params: '{&quot;json&quot;: {&quot;name&quot;: &quot;test&quot;}, &quot;schema&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;name&quot;: {&quot;type&quot;: &quot;string&quot;}}}}'
+    params: '{"json": {"name": "test"}, "schema": {"type": "object", "properties": {"name": {"type": "string"}}}}'
 ```
 
 ---
@@ -81,7 +79,6 @@ Go to your repository **Settings** → **Secrets and variables** → **Actions**
 | `output_file` | Path to save binary output (images, PDFs) | No | - |
 | `format` | Response format: `json`, `yaml`, or `xml` | No | `json` |
 | `fail_on_error` | Fail workflow if API returns error | No | `true` |
-
 *\*API key is required but can be provided via input OR `APIVERVE_API_KEY` / `APIVERVE_KEY` environment variable.*
 
 ## Outputs
@@ -92,7 +89,6 @@ Go to your repository **Settings** → **Secrets and variables** → **Actions**
 | `data` | The `data` field from response as JSON |
 | `status` | API status (`ok` or `error`) |
 | `file` | Path to downloaded file (if `output_file` was used) |
-
 ---
 
 ## Examples
@@ -108,7 +104,7 @@ Validate JSON data against a schema
   with:
     api_key: ${{ secrets.APIVERVE_KEY }}
     api: jsonschemavalidator
-    params: '{&quot;json&quot;: {&quot;name&quot;: &quot;test&quot;}, &quot;schema&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;name&quot;: {&quot;type&quot;: &quot;string&quot;}}}}'
+    params: '{"json": {"name": "test"}, "schema": {"type": "object", "properties": {"name": {"type": "string"}}}}'
 
 - name: Use result
   run: echo "Result: ${{ steps.devops-utilities-0.outputs.data }}"
@@ -125,7 +121,7 @@ Decode a JWT token
   with:
     api_key: ${{ secrets.APIVERVE_KEY }}
     api: jwtdecoder
-    params: '{&quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;}'
+    params: '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."}'
 
 - name: Use result
   run: echo "Result: ${{ steps.devops-utilities-1.outputs.data }}"
@@ -156,7 +152,7 @@ jobs:
         with:
           api_key: ${{ secrets.APIVERVE_KEY }}
           api: jsonschemavalidator
-          params: '{&quot;json&quot;: {&quot;name&quot;: &quot;test&quot;}, &quot;schema&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;name&quot;: {&quot;type&quot;: &quot;string&quot;}}}}'
+          params: '{"json": {"name": "test"}, "schema": {"type": "object", "properties": {"name": {"type": "string"}}}}'
 
       - name: Show result
         run: |
